@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "dgSpecHash": "doJ4YoZM5PQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danii\\Desktop\\PR4 Batov\\BookingService\\BookingService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danii\\.nuget\\packages\\microsoft.aspnetcore.openapi\\11.0.0-preview.1.26104.118\\microsoft.aspnetcore.openapi.11.0.0-preview.1.26104.118.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry\\1.12.0\\opentelemetry.1.12.0.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry.api\\1.12.0\\opentelemetry.api.1.12.0.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry.api.providerbuilderextensions\\1.12.0\\opentelemetry.api.providerbuilderextensions.1.12.0.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry.exporter.prometheus.aspnetcore\\1.12.0-beta.1\\opentelemetry.exporter.prometheus.aspnetcore.1.12.0-beta.1.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry.extensions.hosting\\1.12.0\\opentelemetry.extensions.hosting.1.12.0.nupkg.sha512",
+    "C:\\Users\\danii\\.nuget\\packages\\opentelemetry.instrumentation.aspnetcore\\1.12.0\\opentelemetry.instrumentation.aspnetcore.1.12.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'OpenTelemetry.Api' 1.12.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-g94r-2vxg-569j",
+      "projectPath": "C:\\Users\\danii\\Desktop\\PR4 Batov\\BookingService\\BookingService.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\danii\\Desktop\\PR4 Batov\\BookingService\\BookingService.csproj",
+      "libraryId": "OpenTelemetry.Api",
+      "targetGraphs": [
+        "net11.0"
+      ]
+    }
+  ]
+}

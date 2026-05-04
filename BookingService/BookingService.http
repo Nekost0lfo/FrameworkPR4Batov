@@ -1,0 +1,99 @@
+@BookingService_HostAddress = http://localhost:5139
+@Correlation = demo-correlation-001
+
+### Liveness (process responds)
+GET {{BookingService_HostAddress}}/health/live
+
+### Readiness (degrades after consecutive failures or Health:SimulateCriticalDegradation)
+GET {{BookingService_HostAddress}}/health/ready
+
+### OpenAPI (Development)
+GET {{BookingService_HostAddress}}/openapi/v1.json
+
+###
+### Prometheus scrape (booking.* metrics + ASP.NET Core)
+GET {{BookingService_HostAddress}}/metrics
+
+###
+# Happy path: four steps, same process key
+POST {{BookingService_HostAddress}}/api/processes/demo-1/events
+Content-Type: application/json
+X-Correlation-Id: {{Correlation}}
+
+{
+  "idempotencyKey": "step-1",
+  "event": "ReserveRoom",
+  "simulateFailure": false
+}
+
+###
+POST {{BookingService_HostAddress}}/api/processes/demo-1/events
+Content-Type: application/json
+X-Correlation-Id: {{Correlation}}
+
+{
+  "idempotencyKey": "step-2",
+  "event": "ConfirmDetails",
+  "simulateFailure": false
+}
+
+###
+POST {{BookingService_HostAddress}}/api/processes/demo-1/events
+Content-Type: application/json
+X-Correlation-Id: {{Correlation}}
+
+{
+  "idempotencyKey": "step-3",
+  "event": "CapturePayment",
+  "simulateFailure": false
+}
+
+###
+POST {{BookingService_HostAddress}}/api/processes/demo-1/events
+Content-Type: application/json
+X-Correlation-Id: {{Correlation}}
+
+{
+  "idempotencyKey": "step-4",
+  "event": "SendConfirmation",
+  "simulateFailure": false
+}
+
+###
+# Idempotent redelivery (duplicate: state unchanged, metrics redelivery++)
+POST {{BookingService_HostAddress}}/api/processes/demo-1/events
+Content-Type: application/json
+X-Correlation-Id: redelivery-test
+
+{
+  "idempotencyKey": "step-1",
+  "event": "ReserveRoom",
+  "simulateFailure": false
+}
+
+###
+# Simulated failure on next step -> compensation ReleaseRoom, back to Pending
+POST {{BookingService_HostAddress}}/api/processes/demo-2/events
+Content-Type: application/json
+
+{
+  "idempotencyKey": "s1",
+  "event": "ReserveRoom",
+  "simulateFailure": false
+}
+
+###
+POST {{BookingService_HostAddress}}/api/processes/demo-2/events
+Content-Type: application/json
+
+{
+  "idempotencyKey": "s2-fail",
+  "event": "ConfirmDetails",
+  "simulateFailure": true
+}
+
+###
+GET {{BookingService_HostAddress}}/api/processes/demo-2
+
+###
+GET {{BookingService_HostAddress}}/api/processes/unknown-key
